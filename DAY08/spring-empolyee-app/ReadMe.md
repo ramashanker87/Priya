@@ -17,7 +17,7 @@ mvn spring-boot:run
 ### Verify application Health
 
 ```Bash
-curl --location 'http://localhost:8080/actuator/health'
+curl --location "http://localhost:8080/actuator/health"
 ```
 
 ### Create Employee
@@ -35,17 +35,17 @@ curl --location 'http://localhost:8080/employee/create/employee' \
 ### Read All Employee Data
 
 ```Bash
-curl --location 'http://localhost:8080/employee/get/all/employee'
+curl --location "http://localhost:8080/employee/get/all/employee"
 ```
 
 ### Update Employee Data
 
 ```Bash
-curl --location --request PUT 'http://localhost:8080/employee/update/employee?id=1&age=22'
+curl --location --request PUT "http://localhost:8080/employee/update/employee?id=1&age=22"
 ```
 
 ### Delete Employee Data
 
 ```Bash
-curl --location --request DELETE 'http://localhost:8080/employee/delete/employee?id=2'
+curl --location --request DELETE "http://localhost:8080/employee/delete/employee?id=2"
 ```
