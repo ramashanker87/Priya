@@ -25,9 +25,7 @@ public class PatientController {
         return patientService.readAllPatient();
     }
 
-    @GetMapping("/get/patient")
-    public static void getAllPatientByName() {
-    }
+
 
     @PostMapping("/create/patient")
     public Patient createPatients(@RequestBody Patient patient) {
