@@ -1,5 +1,6 @@
 package com.priya.app.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,17 +19,31 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfig {
+
+    @Value("${admin.user}")
+    private String adminUser;
+    @Value("${admin.password}")
+    private String adminPassword;
+    @Value("${admin.role}")
+    private String adminRole;
+
+    @Value("${user.user}")
+    private String userUser;
+    @Value("${user.password}")
+    private String userPassword;
+    @Value("${user.role}")
+    private String userRole;
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails doctor = User.withUsername("doctor")
+        UserDetails doctor = User.withUsername(adminUser)
                 .password(passwordEncoder()
-                        .encode("password1"))
-                .roles("Doctor")
+                        .encode(adminPassword))
+                .roles(adminRole)
                 .build();
-        UserDetails patient = User.withUsername("patient")
+        UserDetails patient = User.withUsername(userUser)
                 .password(passwordEncoder()
-                        .encode("password1"))
-                .roles("PATIENT")
+                        .encode(userPassword))
+                .roles(userRole)
                 .build();
         return new InMemoryUserDetailsManager(doctor, patient);
     }
