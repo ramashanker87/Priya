@@ -2,6 +2,7 @@ package com.priya.app.controller;
 
 
 import com.priya.app.repository.StudentRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,8 @@ public class StudentController {
 
     public StudentController(StudentRepository studentRepository) {
 
-        @GetMapping("/read")
-    }
+        this.studentRepository = studentRepository;}
+    @GetMapping
+
 
 }
