@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
-@Table(name = "users")
+@Table(name = "students")
 @Getter
 @Setter
 @NoArgsConstructor
