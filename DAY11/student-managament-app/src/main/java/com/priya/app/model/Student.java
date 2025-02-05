@@ -12,13 +12,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
 @Entity
 @Table(name = "students")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor  // Required for Hibernate
 @AllArgsConstructor
 @ToString
 public class Student {
@@ -26,12 +24,13 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @Column(nullable = false)
-   private String name;
-    @Column( nullable= false)
-    private String schoolName;
-    @Column(nullable= false)
-    private int age;
-    @Column(nullable= false)
+    private String name;
+    @Column(nullable = false)
+    private String hospitalName;
+    @Column(nullable = false)
+    private String age;
+    @Column(nullable = false)
     private String gender;
 
 }
+

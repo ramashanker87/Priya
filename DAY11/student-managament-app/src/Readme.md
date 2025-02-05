@@ -33,7 +33,7 @@
 
 ### Execute mysql query
 
-    select * from users;
+    select * from students;
 
 ### Exit from docker container
     exit
