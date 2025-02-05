@@ -6,7 +6,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_DATABASE: 'test'
-      MYSQL_USER: 'student'
+      MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
@@ -18,7 +18,7 @@ services:
     restart: always
     environment:
       PMA_HOST: mysql
-      PMA_USER: student
+      PMA_USER: user
       PMA_PASSWORD: password
     ports:
       - "8081:80"

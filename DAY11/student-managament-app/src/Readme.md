@@ -33,13 +33,25 @@
 
 ### Execute mysql query
 
-    select * from students;
-
+    select * from student
 ### Exit from docker container
     exit
 
 ### Start the spring application
-mvn spring-boot:run
+
+    mvn spring-boot:run
+
+### Test With curl command
+
+    curl -X POST 'http://localhost:8080/user/save' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+    "name": "Rama",
+    "email": "rama@example.com"
+    }
+    '
+
+    curl -X GET 'http://localhost:8080/user/read'
 
 ### Access Data Base user interface
 

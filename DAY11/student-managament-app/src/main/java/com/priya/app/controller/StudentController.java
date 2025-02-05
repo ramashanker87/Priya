@@ -1,32 +1,28 @@
 package com.priya.app.controller;
-
-
 import com.priya.app.model.Student;
-import com.priya.app.repository.StudentRepository;
+import com.priya.app.respository.StudentRespository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/student")
-
 public class StudentController {
-    private final StudentRepository studentRepository;
+    private final StudentRespository studentRespository;
 
-    public StudentController(StudentRepository studentRepository) {
-
-        this.studentRepository = studentRepository;
+    public StudentController(StudentRespository studentRespository) {
+        this.studentRespository = studentRespository;
     }
 
     @GetMapping("/read")
     public Iterable<Student> read() {
-        return studentRepository.findAll();
-    }
-
-    @PostMapping("/save")
-    public String save(@RequestBody final Student student) {
-        System.out.println("Saving student: " + student);
-        studentRepository.save(student);
-        return "save";
+        return studentRespository.findAll();
     }
 
 
+@PostMapping("/save")
+public String save(@RequestBody final Student student) {
+    System.out.println("Saving student: " + student);
+    studentRespository.save(student);
+    return "save";
+
+}
 }
