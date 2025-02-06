@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: patient-management-app
+  datasource:
+    url:  jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Hibernate Properties
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true

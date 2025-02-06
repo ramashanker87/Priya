@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  message-app:
+    image: patient-management-app:0.0.1
+    container_name: patient-management-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/test?useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - message-network
+  mysql_db:
+    image: mysql:8
+    restart: always
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - message-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql_db
+      PMA_USER: user
+      PMA_PASSWORD: password
+    ports:
+      - "8081:80"
+    networks:
+      - message-network
+networks:
+  message-network:
+    driver: bridge
