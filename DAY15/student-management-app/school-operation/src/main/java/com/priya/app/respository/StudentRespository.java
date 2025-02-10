@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StudentRespository extends CrudRepository<Student, String> {
     void deleteByName(String name);
+
+    Student student(String id, String name);
 }

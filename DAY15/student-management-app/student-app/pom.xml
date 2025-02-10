@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.priya.app</groupId>
-		<artifactId>student-management-app</artifactId>
-		<version>1.0.0</version>
+		<artifactId>student-managament-app</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.priya.app</groupId>
@@ -13,13 +14,12 @@
 	<version>1.0.0</version>
 	<name>student-app</name>
 	<description>Spring Boot for send request</description>
-
-
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.0.0</version>
 			</plugin>
 		</plugins>
 	</build>
