@@ -3,5 +3,8 @@ package com.priya.app.respository;
 import com.priya.app.model.Student;
 import org.springframework.data.repository.CrudRepository;
 
-public interface StudentRespository extends CrudRespository<Student, Integer> {
+import java.util.List;
+
+public interface StudentRespository extends CrudRepository<Student, String> {
+    void deleteByName(String name);
 }
