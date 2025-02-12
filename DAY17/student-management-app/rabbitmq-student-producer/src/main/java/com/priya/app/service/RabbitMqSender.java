@@ -1,6 +1,7 @@
 package com.priya.app.service;
 
 import com.priya.app.model.Student;
+import com.priya.app.respository.StudentRespository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -24,6 +25,7 @@ public class RabbitMqSender
     public void sendStudent(Student student) {
         logger.info("sending student: {}", student.toString());
         amqpTemplate.convertAndSend(exchangeName, studentRoutingKeyName,student);
+
     }
     public void deleteName(String student) {
         logger.info("deleting student: {}", student.toString());
