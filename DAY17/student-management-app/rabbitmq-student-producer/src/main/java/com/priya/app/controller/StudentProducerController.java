@@ -26,7 +26,7 @@ public class StudentProducerController {
     @DeleteMapping("/delete")
     public void deleteStudent(@RequestParam String name) {
         rabbitMqSender.deleteName(name);
-        studentRespository.delete(name);
+        studentRespository.deleteName(name);
   }
     }
 
