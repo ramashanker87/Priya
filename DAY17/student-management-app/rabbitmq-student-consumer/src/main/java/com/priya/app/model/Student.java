@@ -5,16 +5,16 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 public class Student {
 
-   public String id;
+   public int id;
    public String name;
    public String schoolName;
     public Integer age;
     public String gender;
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

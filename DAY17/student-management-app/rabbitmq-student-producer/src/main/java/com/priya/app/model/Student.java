@@ -10,17 +10,17 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public String id;
+    public int id;
     public String name;
     public String schoolName;
     public Integer age;
     public String gender;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -55,8 +55,9 @@ public class Student {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
     public Student() {}
-    public Student(String id, String name,String schoolName, int age,String gender) {
+    public Student(int id, String name, String schoolName, int age, String gender) {
         super();
         this.id = id;
         this.name = name;
@@ -64,4 +65,5 @@ public class Student {
         this.age = age;
         this.gender = gender;
 
+    }
 }

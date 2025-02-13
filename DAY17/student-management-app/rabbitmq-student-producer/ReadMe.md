@@ -21,7 +21,6 @@ Post:
 curl --location 'http://localhost:8082/student/save' \
 --header 'Content-Type: application/json' \
 --data '{
-"id":"1",
 "name":"priya",
 "schoolName":"abc",
 "age": 25,
