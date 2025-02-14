@@ -13,12 +13,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/patient")
-public class MessageController {
+public class PatientController {
 
     private final PatientSqsService patientSqsService;
     private final ObjectMapper objectMapper;
 
-    public MessageController(PatientSqsService patientSqsService, ObjectMapper objectMapper) {
+    public PatientController(PatientSqsService patientSqsService, ObjectMapper objectMapper) {
         this.patientSqsService = patientSqsService;
         this.objectMapper = objectMapper;
     }
@@ -27,7 +27,6 @@ public class MessageController {
         Map<String, Object> headers = new HashMap<>();
         String correlationId = UUID.randomUUID().toString();
         headers.put("disease", disease);
-        headers.put("correlationId", correlationId);
         String requestMessage = objectMapper.writeValueAsString(patient);
         patientSqsService.sendMessage(requestMessage, headers);
         return disease;

@@ -18,13 +18,15 @@
 
 Patient:
 Post:
-curl --location 'http://localhost:8081/patient/send' \
+curl --location 'http://localhost:8081/patie
+nt/send' \
 --header 'disease: fiver' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic UEFUSUVOVDpwYXNzd29yZDI=' \
 --header 'Cookie: JSESSIONID=498B275E6D9F28EADB58900B42281F67' \
 --data '{
-"id":"Daksha",
+"name":"Daksha"
+"id":"1",
 "hospitalName": "abc",
 "age": 24,
 "gender": "M"

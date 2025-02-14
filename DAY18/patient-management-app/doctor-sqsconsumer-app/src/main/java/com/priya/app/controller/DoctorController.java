@@ -18,11 +18,11 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/doctor")
-public class ConsumerController {
+public class DoctorController {
     private final DoctorSqsConsumer doctorSqsConsumer;
     @Value("${amazon.aws.sqs.queue}")
     private String queue;
-    public ConsumerController(DoctorSqsConsumer doctorSqsConsumer) {
+    public DoctorController(DoctorSqsConsumer doctorSqsConsumer) {
         this.doctorSqsConsumer = doctorSqsConsumer;
     }
     @GetMapping("/receive")

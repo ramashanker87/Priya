@@ -1,8 +1,19 @@
 package com.priya.app.model;
 
 public class Patient {
+    String name;
     String id;
     String hospitalName;
+    int age;
+    String gender;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -36,6 +47,5 @@ public class Patient {
         this.gender = gender;
     }
 
-    int age;
-    String gender;
+
 }
