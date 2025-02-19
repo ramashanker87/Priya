@@ -11,4 +11,8 @@
 	<version>1.0.0</version>
 	<name>car-parking-process</name>
 	<description>car-parking-process</description>
+	<dependencies><dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-amqp</artifactId>
+	</dependency></dependencies>
 </project>
