@@ -1,21 +1,38 @@
 package com.priya.app.service;
 
+import com.priya.app.exception.ParkingException;
 import com.priya.app.model.Car;
 import com.priya.app.model.ParkingEnd;
 import com.priya.app.model.ParkingStart;
+import com.priya.app.model.ParkingStartTable;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 
-@Service
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
+
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+
+@Component
+
 
 public class ParkingService {
+
     private static final Logger logger = LoggerFactory.getLogger(ParkingService.class);
     private final AmqpTemplate amqpTemplate;
     @Value("${rabbitmq.exchange.name}")
@@ -28,6 +45,8 @@ public class ParkingService {
     String parkingEndRoutingKeyName;
     @Value("parking-end-request.out")
     String parkingEndRequestOut;
+
+
     private ParkingStart parkingStart;
    //private ParkingEnd parkingEnd;
     public ParkingService(AmqpTemplate amqpTemplate, ParkingStart parkingStart) {
@@ -47,8 +66,8 @@ public class ParkingService {
         return parkingStart;
     }
 
-    public ParkingEnd endParking(String regNo) {
 
+    public ParkingEnd endParking(String regNo) {
         ParkingEnd parkingEnd = new ParkingEnd();
         parkingEnd.setParkingNo(parkingStart.getParkingNo());
         parkingEnd.setStartTime(parkingStart.getStartTime());
@@ -60,7 +79,6 @@ public class ParkingService {
         parkingEnd.setPrice((int)(mints*2));
         logger.info(parkingEnd.toString());
         amqpTemplate.convertAndSend(exchangeName, parkingEndRoutingKeyName,parkingEnd);
-            return parkingEnd;
+        return parkingEnd;
     }
-
 }

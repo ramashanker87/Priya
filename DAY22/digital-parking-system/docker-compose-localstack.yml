@@ -1,19 +1,12 @@
 version: "3.8"
 services:
-
-  rabbitmq:
-    image: "rabbitmq:3-management"
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-
   localstack:
     image: localstack/localstack:latest
     container_name: localstack
     ports:
       - "4566:4566"
     environment:
-      - SERVICES=dynamodb,cloudwatch
+      - SERVICES = dynamodb
       - AWS_DEFAULT_REGION=eu-west-1
       - LS_LOG=info
       # Set DEBUG to 1 when fault tracing
@@ -21,7 +14,7 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - EDGE_PORT=4566
     healthcheck:
-      test: "curl --silent --fail localhost:4566/_localstack/health > health.out && curl --silent --fail localhost:4566/_localstack/init >> health.out && cat health.out | grep '\"dynamodb\": \"running\"' |grep -v '\"ERROR\"'"
+      test: "curl --silent --fail localhost:4566/_localstack/health > health.out && curl --silent --fail localhost:4566/_localstack/init >> health.out && cat health.out | grep '\"dynamodb\": \"running\"' | grep -v '\"ERROR\"'"
       interval: 2s
       retries: 10
       start_period: 10s
