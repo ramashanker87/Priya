@@ -1,10 +1,17 @@
 package com.priya.app.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 @Service
+@Entity
 public class ParkingStart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
      String parkingNo;
      Date startTime ;
     String Status;

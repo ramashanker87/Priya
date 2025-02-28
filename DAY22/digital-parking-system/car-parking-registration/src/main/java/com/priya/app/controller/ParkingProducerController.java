@@ -3,15 +3,13 @@ package com.priya.app.controller;
 import com.priya.app.model.Car;
 import com.priya.app.model.ParkingEnd;
 import com.priya.app.model.ParkingStart;
-import com.priya.app.service.DynamodbService;
+import com.priya.app.resporitory.ParkingStartResporitory;
 import com.priya.app.service.ParkingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+
 
 @Component
 @RestController
@@ -21,23 +19,26 @@ public class ParkingProducerController {
 
     private ParkingService parkingService;
 
+    private ParkingStartResporitory parkingStartResporitory;
 
-    private DynamodbService dynamodbService;
 
-    public ParkingProducerController(ParkingService parkingService, ParkingStart parkingStart) {
+
+
+    public ParkingProducerController(ParkingService parkingService, ParkingStart parkingStart,ParkingStartResporitory parkingStartResporitory){
          this.parkingService = parkingService;
          this.parkingStart = parkingStart;
+         this.parkingStartResporitory = parkingStartResporitory;
+
      }
      private static final Logger logger = LoggerFactory.getLogger(ParkingProducerController.class);
     @PostMapping("/start")
     public ParkingStart startParking(@RequestBody Car car, @RequestParam String parkingNo) {
         logger.info("Starting parking for car");
-        dynamodbService.storeParkingStart(
-                parkingStart.getParkingNo(),
-                parkingStart.getStatus(),
-                parkingStart.getRegNo(),
-        parkingStart.getStartTime());
-        return parkingService.startParking(car,parkingNo);
+
+         parkingStartResporitory.save(parkingStart);
+
+
+        return parkingService.startParking(car, parkingNo);
     }
     @PostMapping("/end")
     public ParkingEnd endParking(@RequestParam String regNo) {
