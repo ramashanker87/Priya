@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.core.*;
 
 
+
+
 @Configuration
-public class RabbitMqConfig {
+public class RabbitMqConfigProducer {
     @Value("${rabbitmq.exchange.name}")
     String exchangeName;
     @Value("${rabbitmq.parkingStart.queue.name}")

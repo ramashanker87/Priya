@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.2"
 services:
 
   rabbitmq:
@@ -6,6 +6,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+
   mysql:
     image: mysql:8
     restart: always

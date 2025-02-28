@@ -3,7 +3,7 @@ package com.priya.app.controller;
 import com.priya.app.model.Car;
 import com.priya.app.model.ParkingEnd;
 import com.priya.app.model.ParkingStart;
-import com.priya.app.resporitory.ParkingStartResporitory;
+
 import com.priya.app.service.ParkingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,15 +19,15 @@ public class ParkingProducerController {
 
     private ParkingService parkingService;
 
-    private ParkingStartResporitory parkingStartResporitory;
 
 
 
 
-    public ParkingProducerController(ParkingService parkingService, ParkingStart parkingStart,ParkingStartResporitory parkingStartResporitory){
+
+    public ParkingProducerController(ParkingService parkingService, ParkingStart parkingStart){
          this.parkingService = parkingService;
          this.parkingStart = parkingStart;
-         this.parkingStartResporitory = parkingStartResporitory;
+
 
      }
      private static final Logger logger = LoggerFactory.getLogger(ParkingProducerController.class);
@@ -35,7 +35,6 @@ public class ParkingProducerController {
     public ParkingStart startParking(@RequestBody Car car, @RequestParam String parkingNo) {
         logger.info("Starting parking for car");
 
-         parkingStartResporitory.save(parkingStart);
 
 
         return parkingService.startParking(car, parkingNo);
