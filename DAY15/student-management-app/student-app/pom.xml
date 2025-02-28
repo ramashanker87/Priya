@@ -4,10 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.priya.app</groupId>
-		<artifactId>student-managament-app</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-
-		<relativePath/> <!-- lookup parent from repository -->
+		<artifactId>student-management-app</artifactId>
+		<version>1.0.0</version>
 	</parent>
 	<groupId>com.priya.app</groupId>
 	<artifactId>student-app</artifactId>
@@ -23,5 +21,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

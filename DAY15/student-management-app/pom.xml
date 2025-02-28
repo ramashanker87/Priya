@@ -3,20 +3,19 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.priya.rest</groupId>
-	<artifactId>student-management-app</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.priya.app</groupId>
+	<artifactId>student-management-app</artifactId>
+	<version>1.0.0</version>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.7</version>
+		<version>3.4.2</version>
 	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>11</java.version>
+		<java.version>23</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,7 +34,7 @@
 	</dependencies>
 
 	<modules>
-		<module>student-app</module>
 		<module>school-operation</module>
+		<module>student-app</module>
 	</modules>
 </project>

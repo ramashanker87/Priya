@@ -1,0 +1,18 @@
+server:
+  port: 8082    #port number
+
+spring:
+  application:
+    name: school-service    #service name
+
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+ 
+logging:
+  level:
+    com.eureka.app: DEBUG
