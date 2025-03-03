@@ -20,6 +20,7 @@ public class ParkingEnd {
         this.parkingNo = parkingNo;
     }
 
+
     public Date getStartTime() {
         return startTime;
     }
