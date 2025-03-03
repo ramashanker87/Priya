@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class rabbitMqConsumer {
     @Configuration
     public class RabbitMqConfigProducer {
-        @Value("${rabbitmq.exchangeResponse.name}")
-        String exchangeNameResponse;
+        @Value("${rabbitmq.exchange.name}")
+        String exchangeName;
         @Value("${rabbitmq.parkingStartResponse.queue.name}")
         String parkingStartResponsequeuename;
         @Value("${rabbitmq.parkingStartResponse.routingkey.name}")
@@ -34,16 +34,16 @@ public class rabbitMqConsumer {
         }
         @Bean
         public DirectExchange exchange() {
-            return new DirectExchange(exchangeNameResponse);
+            return new DirectExchange(exchangeName);
         }
 
         @Bean
-        public Binding parkingStartBinding(Queue parkingStartqueue, DirectExchange exchange) {
-            return BindingBuilder.bind(parkingStartqueue).to(exchange).with(parkingStartResponseRoutingKeyName);
+        public Binding parkingStartresponseBinding(Queue parkingStartResponsequeuename, DirectExchange exchange) {
+            return BindingBuilder.bind(parkingStartResponsequeuename).to(exchange).with(parkingStartResponseRoutingKeyName);
         }
         @Bean
-        public Binding parkingEndBinding(Queue parkingEndqueue, DirectExchange exchange) {
-            return BindingBuilder.bind(parkingEndqueue).to(exchange).with(parkingEndResponseRoutingKeyName);
+        public Binding parkingEndResponseBinding(Queue parkingEndResponsequeuename, DirectExchange exchange) {
+            return BindingBuilder.bind(parkingEndResponsequeuename).to(exchange).with(parkingEndResponseRoutingKeyName);
         }
         @Bean
         public MessageConverter JsonMessageConverter() {

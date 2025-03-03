@@ -77,14 +77,15 @@ public class ParkingService {
         return new Jackson2JsonMessageConverter();
     }
     @RabbitListener(queues= "${rabbitmq.parkingStartResponse.queue.name}")
-    public void receiveParkingStart(ParkingStart parkingStart) {
-        logger.info("receive message: {}",parkingStart.toString());
+    public void receiveParkingStart(String message) {
+        logger.info("start response message: {}"+ message);
 
 
     }
     @RabbitListener(queues= "${rabbitmq.parkingEndResponse.queue.name}")
-    public void receiveParkingEnd(ParkingEnd parkingEnd) {
-        logger.info("receive message: {}",parkingEnd.toString());
+    public void receiveParkingEnd(String message) {
+        logger.info("end response message: {}"+ message);
+
     }
 
 }
