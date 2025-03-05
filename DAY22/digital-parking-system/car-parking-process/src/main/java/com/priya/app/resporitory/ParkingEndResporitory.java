@@ -1,7 +1,12 @@
 package com.priya.app.resporitory;
 
 import com.priya.app.model.ParkingEnd;
-import org.springframework.data.repository.CrudRepository;
+import com.priya.app.model.ParkingStart;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParkingEndResporitory extends CrudRepository<ParkingEnd,Integer> {
+import java.util.Optional;
+
+public interface ParkingEndResporitory extends JpaRepository<ParkingEnd,Integer> {
+
+   ParkingEnd findByRegNo(String regNo);
 }

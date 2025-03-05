@@ -2,47 +2,64 @@ package com.priya.app.service;
 
 import com.priya.app.model.ParkingEnd;
 import com.priya.app.model.ParkingStart;
-
 import com.priya.app.resporitory.ParkingEndResporitory;
 import com.priya.app.resporitory.ParkingStartResporitory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
+import java.util.Optional;
 
 @Service
 public class ParkingResponseService {
     private static final Logger logger = LoggerFactory.getLogger(ParkingResponseService.class);
+ @Autowired
+ private ResporitoryService resporitoryService;
 
 
-@Autowired
-private ParkingStartResporitory parkingStartResporitory;
 
-@Autowired
-private ParkingEndResporitory parkingEndResporitory;
+    private final AmqpTemplate amqpTemplate;
 
-    @Bean
-    public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
-        return new Jackson2JsonMessageConverter();
+    public ParkingResponseService(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+
     }
-    @RabbitListener(queues= "${rabbitmq.parkingStart.queue.name}")
-    public void receiveStartRequest(Map<String, Object> message){
 
-        logger.info("receive message: {}" + message);
-        ParkingStart parkingStarted = new ParkingStart();
-      parkingStartResporitory.save(parkingStarted);
+    @Value("${rabbitmq.exchange.name}")
+    String exchangeName;
+
+    @Value("${rabbitmq.parkingStartResponse.routingkey.name}")
+    String parkingStartResponseRoutingKeyName;
+
+    @Value("${rabbitmq.parkingEndResponse.routingkey.name}")
+    String parkingEndResponseRoutingKeyName;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+
+    @RabbitListener(queues= "${rabbitmq.parkingStart.queue.name}")
+
+
+    public void receiveParkingstart(ParkingStart parkingStart) {
+        logger.info("receive message: {}",parkingStart.toString());
+      resporitoryService.handleParkingStart(parkingStart);
+
+        rabbitTemplate.convertAndSend("parking-start-response", parkingStart);
     }
 
     @RabbitListener(queues= "${rabbitmq.parkingEnd.queue.name}")
     public void receiveParkingEnd(ParkingEnd parkingEnd) {
-        logger.info("receive message: {}",parkingEnd.toString());
-    }
-}
+        logger.info("receive message: {}", parkingEnd.toString());
+       resporitoryService.handleParkingEnd(String.valueOf(parkingEnd));
+        rabbitTemplate.convertAndSend("parking-end-response", parkingEnd);
+
+
+
+    }    }
 

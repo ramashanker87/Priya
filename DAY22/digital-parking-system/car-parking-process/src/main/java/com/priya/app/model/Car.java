@@ -1,15 +1,17 @@
 package com.priya.app.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 @Entity
 public class Car {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
+
     String ownerName;
     String regNo;
     String module;
@@ -45,5 +47,15 @@ public class Car {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                " ownerName='" + ownerName + '\'' +
+                ", regNo='" + regNo + '\'' +
+                ", module='" + module + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

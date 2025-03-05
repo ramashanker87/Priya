@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 
 
-public class DigitalParkingSystemApplication {
+public class CarParkingProcess {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DigitalParkingSystemApplication.class, args);
+		SpringApplication.run(CarParkingProcess.class, args);
 	}
 
 }

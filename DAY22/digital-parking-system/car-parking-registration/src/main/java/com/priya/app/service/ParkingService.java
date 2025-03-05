@@ -37,6 +37,7 @@ public class ParkingService {
     String parkingEndRequestOut;
 
 
+
     private ParkingStart parkingStart;
    //private ParkingEnd parkingEnd;
     public ParkingService(AmqpTemplate amqpTemplate, ParkingStart parkingStart) {
@@ -72,20 +73,18 @@ public class ParkingService {
         return parkingEnd;
     }
 
-    @Bean
-    public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
-        return new Jackson2JsonMessageConverter();
+    @RabbitListener(queues = "${rabbitmq.parkingStartResponse.queue.name}")
+    public void receiveStartResponse(String message) {
+        logger.info("Received start response: " + message);
     }
-    @RabbitListener(queues= "${rabbitmq.parkingStartResponse.queue.name}")
-    public void receiveParkingStart(String message) {
-        logger.info("start response message: {}"+ message);
 
 
+    @RabbitListener(queues =
+            "${rabbitmq.parkingEndResponse.queue.name}")
+    public void receiveEndResponse(String message) {
+        logger.info("Received end response: " + message);
     }
-    @RabbitListener(queues= "${rabbitmq.parkingEndResponse.queue.name}")
-    public void receiveParkingEnd(String message) {
-        logger.info("end response message: {}"+ message);
 
-    }
+
 
 }

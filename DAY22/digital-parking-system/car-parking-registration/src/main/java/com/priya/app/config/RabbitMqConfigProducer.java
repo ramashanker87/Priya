@@ -26,6 +26,9 @@ public class RabbitMqConfigProducer {
     String parkingEndRequestOut;
     @Value("parkingEnd.routingkey")
     String parkingEndRoutingKeyName;
+
+//
+
     @Value("${rabbitmq.parkingStartResponse.queue.name}")
     String parkingStartResponsequeuename;
     @Value("${rabbitmq.parkingStartResponse.routingkey.name}")
@@ -34,23 +37,47 @@ public class RabbitMqConfigProducer {
     String parkingEndResponsequeuename;
     @Value("${rabbitmq.parkingEndResponse.routingkey.name}")
     String parkingEndResponseRoutingKeyName;
-    @Bean
-    public Queue parkingStartresponsequeue() {
-        return new Queue(parkingStartResponsequeuename, true) {
-        };
 
-    }
     @Bean
-    public Queue parkingEndresponsequeue() {
-        return new Queue(parkingEndResponsequeuename, true) {};
+    public Queue startResponseQueue() {
+        return new Queue(parkingStartResponsequeuename, true);
     }
 
+    @Bean
+    public Queue endResponseQueue() {
+        return new Queue(parkingEndResponsequeuename, true);
+    }
+
+    @Bean
+    public Binding startResponseBinding(Queue startResponseQueue) {
+        return BindingBuilder.bind(startResponseQueue).to(new DirectExchange(exchangeName))
+                .with(parkingStartResponseRoutingKeyName);
+    }
+
+    @Bean
+    public Binding endResponseBinding(Queue startResponseQueue) {
+        return BindingBuilder.bind(startResponseQueue).to(new DirectExchange(exchangeName))
+                .with(parkingEndResponseRoutingKeyName);
+    }
+
+    @Bean
+    public Jackson2JsonMessageConverter consumerJsonMessageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
+
+
+    @Bean
+    public AmqpTemplate consumerAmqpTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(consumerJsonMessageConverter());
+        return rabbitTemplate;
+    }
 
 
 
 
 
-@Bean
+    @Bean
 public Queue parkingStartqueue() {
     return new Queue(parkingStartqueuename, true) {
     };
@@ -73,29 +100,6 @@ public Queue parkingEndqueue() {
     public Binding parkingEndBinding(Queue parkingEndqueue, DirectExchange exchange) {
      return BindingBuilder.bind(parkingEndqueue).to(exchange).with(parkingEndRoutingKeyName);
     }
-
-    @Bean
-    public Binding parkingStartresponseBinding(Queue parkingStartResponsequeuename, DirectExchange exchange) {
-        return BindingBuilder.bind(parkingStartResponsequeuename).to(exchange).with(parkingStartResponseRoutingKeyName);
-    }
-    @Bean
-    public Binding parkingEndResponseBinding(Queue parkingEndResponsequeuename, DirectExchange exchange) {
-        return BindingBuilder.bind(parkingEndResponsequeuename).to(exchange).with(parkingEndResponseRoutingKeyName);
-    }
-
-    @Bean
-    public Jackson2JsonMessageConverter consumerJsonMessageConverter() {
-        return new Jackson2JsonMessageConverter();
-    }
-
-
-    @Bean
-    public AmqpTemplate consumerAmqpTemplate(ConnectionFactory connectionFactory) {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(consumerJsonMessageConverter());
-        return rabbitTemplate;
-    }
-
     @Bean
     public MessageConverter JsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
@@ -107,5 +111,11 @@ public Queue parkingEndqueue() {
         rabbitTemplate.setMessageConverter(JsonMessageConverter());
         return rabbitTemplate;
     }
-}
+
+
+    }
+
+
+
+
 

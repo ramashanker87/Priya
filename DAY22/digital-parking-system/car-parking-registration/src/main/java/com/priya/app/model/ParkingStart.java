@@ -1,5 +1,6 @@
 package com.priya.app.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,13 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 @Service
-@Entity
 
+@Entity
 public class ParkingStart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-     String parkingNo;
+    private Integer id;
+
+
+
+
+
+    String parkingNo;
      Date startTime ;
     String Status;
     String regNo ;

@@ -1,5 +1,6 @@
 package com.priya.app.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,8 @@ import java.util.Date;
 public class ParkingEnd {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
+
     String parkingNo;
     Date startTime;
     Date endTime;
@@ -68,6 +70,5 @@ public class ParkingEnd {
     public void setRegNo(String regNo) {
         this.regNo = regNo;
     }
-
 
 }

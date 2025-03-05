@@ -1,9 +1,7 @@
 package com.priya.app.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,7 +10,8 @@ import java.util.Date;
 public class ParkingEnd {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
+
     String parkingNo;
     Date startTime;
     Date endTime;
@@ -69,5 +68,15 @@ public class ParkingEnd {
         this.regNo = regNo;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    Car car;
 
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
 }
